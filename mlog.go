@@ -186,7 +186,13 @@ func doLogging(logLevel LogLevel, fileName string, maxBytes, backupCount int) {
 		if err != nil {
 			log.Fatal("mlog: unable to create RotatingFileHandler: ", err)
 		}
+        traceHandle = io.Writer(fileHandle)
+        infoHandle = io.Writer(fileHandle)
+        warnHandle = io.Writer(fileHandle)
+        errorHandle = io.Writer(fileHandle)
+        fatalHandle = io.Writer(fileHandle)
 
+        /*
 		if traceHandle == os.Stdout {
 			traceHandle = io.MultiWriter(fileHandle, traceHandle)
 		}
@@ -206,6 +212,7 @@ func doLogging(logLevel LogLevel, fileName string, maxBytes, backupCount int) {
 		if fatalHandle == os.Stderr {
 			fatalHandle = io.MultiWriter(fileHandle, fatalHandle)
 		}
+        */
 	}
 
 	Logger = mlog{
@@ -213,7 +220,7 @@ func doLogging(logLevel LogLevel, fileName string, maxBytes, backupCount int) {
 		Info:    log.New(infoHandle, "I: ", DefaultFlags),
 		Warning: log.New(warnHandle, "W: ", DefaultFlags),
 		Error:   log.New(errorHandle, "E: ", DefaultFlags),
-		Fatal:   log.New(errorHandle, "F: ", DefaultFlags),
+		Fatal:   log.New(fatalHandle, "F: ", DefaultFlags),
 		LogFile: fileHandle,
 	}
 
