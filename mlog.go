@@ -47,7 +47,7 @@ type mlog struct {
 var Logger mlog
 
 // DefaultFlags used by created loggers
-var DefaultFlags = log.Ldate | log.Ltime | log.Lshortfile
+var DefaultFlags = log.Ldate | log.Ltime | log.Lshortfile | log.Lmicroseconds
 
 //RotatingFileHandler writes log a file, if file size exceeds maxBytes,
 //it will backup current file and open a new one.
